@@ -9,6 +9,8 @@ from django.contrib.sites.shortcuts import get_current_site
 from django.urls import reverse
 from django.utils.encoding import force_bytes, DjangoUnicodeDecodeError
 from apps.models import *
+from apps.models import applists
+from plans.models import Plan
 
 from logging.handlers import TimedRotatingFileHandler
 import logging
@@ -39,11 +41,13 @@ def app_registration(request, appslug, billing_slug):
             user.set_password(password)
             user.is_active = True
             user.save()
-
+            app = applists.objects.filter(slug=appslug).first()
+            default_plan = Plan.objects.filter(app=app).filter(default_for_customer=True).first()
             profile = Profile.objects.get(user=user)
             profile.apps.add(applists.objects.get(slug=appslug))
+            profile.plans.add(default_plan)
             messages.success(
-                request, 'Account successfully created! Check your Email for Account Activation')
+                request, 'Customer Successfully Created and added to the app.')
             return redirect('addcustomer', slug=appslug, billing_slug=billing_slug)
 
         messages.warning(request, "This Email already exists!")

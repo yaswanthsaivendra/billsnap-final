@@ -109,6 +109,7 @@
                                     {{app.author}}
                                 </div>
                                 <br>
+                                {% if is_billing %}
                                 <h4 class="my-3">Default Plan</h4>
                                 <hr>
                                 <div class="mb-2">
@@ -127,8 +128,7 @@
                                     <b>Duration: </b>
                                     {{plan.duration}}
                                 </div>
-
-
+                                {% endif %}
 
                             </div>
                         </div>

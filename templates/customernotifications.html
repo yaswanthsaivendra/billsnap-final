@@ -25,58 +25,17 @@
     .bgsecondary {
         background-color: rgba(157, 157, 157, 0.204);
     }
+
+    .noti-img {
+        width: 50px;
+        height: 50px;
+        border-radius: 100%;
+
+    }
 </style>
 
 <body>
-    <header>
-        <nav class="navbar navbar-expand-lg fixed-top p-md-0">
-            <div class="container-fluid">
-                <div class="d-md-none menu">
-                    <i class="fa-solid fa-bars"></i>
-                </div>
-                <div class="d-none d-md-none close">
-                    <i class="fa-solid fa-xmark fa-xl"></i>
-                </div>
-                <a class="navbar-brand d-none d-md-block mt-1" href="#">
-                    <h4 class="text-dark">Billsnap</h4>
-                </a>
-                <div class="d-flex ms-auto gap-4 pe-3">
-                    <div class="btn-group dropstart">
-                        <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown"
-                            aria-expanded="false">
-                            <i class="fa-regular fa-bell"></i>
-                        </button>
-                        <ul class="dropdown-menu dropdown-menu-end mt-4">
-                            <li><a class="dropdown-item" href="#">Action</a></li>
-                            <li><a class="dropdown-item" href="#">Another action</a></li>
-                            <li><a class="dropdown-item" href="#">Something else here</a></li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li><a class="dropdown-item" href="#">Separated link</a></li>
-                        </ul>
-                    </div>
-                    <div class="btn-group dropstart">
-                        <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown"
-                            aria-expanded="false">
-                            <i class="fa-regular fa-user"></i>
-
-                        </button>
-                        <ul class="dropdown-menu dropdown-menu-end mt-4">
-                            <li><a class="dropdown-item" href="#">Action</a></li>
-                            <li><a class="dropdown-item" href="#">Another action</a></li>
-                            <li><a class="dropdown-item" href="#">Something else here</a></li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li><a class="dropdown-item" href="#">Separated link</a></li>
-                        </ul>
-                    </div>
-
-                </div>
-            </div>
-        </nav>
-    </header>
+    {% include 'customerdashnav.html' %}
 
     <div class="main mx-auto">
         <div class="row">
@@ -85,11 +44,11 @@
                 <div class="col right create-customer ps-0 pe-4 me-2" id="">
                     <div class="row mt-5">
                         <h4>Your Notifications</h4>
-                        <div class="d-flex align-items my-3">
+                        <div class="my-3">
                             {% for notification in notifications %}
-                            <div class="plan-card border rounded bgsecondary p-3 mb-5 px-5 mx-3">
-                                <h5>{{ notification.body }}</h5>
+                            <div class="plan-card d-flex align-items-center border rounded bgsecondary p-3 mb-3 px-5 mx-3 w-100">
                                 <img src="{{ notification.image.url }}" alt="" class="noti-img">
+                                <p class="m-0 p-0 px-3">{{ notification.body }}</p>
                             </div>
                             {% endfor %}
                         </div>

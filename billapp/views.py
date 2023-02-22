@@ -30,6 +30,23 @@ def customer_notifications(request):
     user_notifications = Notification.objects.filter(profile=user_profile)
     return render(request,'customernotifications.html', {'notifications':user_notifications})
 
+
+def customer_notification_nav(request):
+    user_profile = Profile.objects.filter(user=request.user).first()
+    user_notifications = Notification.objects.filter(profile=user_profile)
+    count = 0
+    notifications = {}
+    for notification in user_notifications:
+        if count == 2:
+            break
+        notifications.update({
+            count : notification
+        })
+        count += 1
+    print(notifications)
+    return render(request,'customerdashnav.html', {'notifications':user_notifications})
+
+
 def sending(request):
     l=[]
     for i in range(10):

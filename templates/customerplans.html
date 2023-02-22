@@ -28,55 +28,8 @@
 </style>
 
 <body>
-    <header>
-        <nav class="navbar navbar-expand-lg fixed-top p-md-0">
-            <div class="container-fluid">
-                <div class="d-md-none menu">
-                    <i class="fa-solid fa-bars"></i>
-                </div>
-                <div class="d-none d-md-none close">
-                    <i class="fa-solid fa-xmark fa-xl"></i>
-                </div>
-                <a class="navbar-brand d-none d-md-block mt-1" href="#">
-                    <h4 class="text-dark">Billsnap</h4>
-                </a>
-                <div class="d-flex ms-auto gap-4 pe-3">
-                    <div class="btn-group dropstart">
-                        <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown"
-                            aria-expanded="false">
-                            <i class="fa-regular fa-bell"></i>
-                        </button>
-                        <ul class="dropdown-menu dropdown-menu-end mt-4">
-                            <li><a class="dropdown-item" href="#">Action</a></li>
-                            <li><a class="dropdown-item" href="#">Another action</a></li>
-                            <li><a class="dropdown-item" href="#">Something else here</a></li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li><a class="dropdown-item" href="#">Separated link</a></li>
-                        </ul>
-                    </div>
-                    <div class="btn-group dropstart">
-                        <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown"
-                            aria-expanded="false">
-                            <i class="fa-regular fa-user"></i>
+    {% include 'customerdashnav.html' %}
 
-                        </button>
-                        <ul class="dropdown-menu dropdown-menu-end mt-4">
-                            <li><a class="dropdown-item" href="#">Action</a></li>
-                            <li><a class="dropdown-item" href="#">Another action</a></li>
-                            <li><a class="dropdown-item" href="#">Something else here</a></li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li><a class="dropdown-item" href="#">Separated link</a></li>
-                        </ul>
-                    </div>
-
-                </div>
-            </div>
-        </nav>
-    </header>
 
     <div class="main mx-auto">
         <div class="row">
@@ -94,6 +47,8 @@
                                 <p>App Name: {{ plan.app }}</p>
                                 <p class="text-secondary">{{ plan.description }}</p>
                             </div>
+                            {% empty %}
+                            <p class="text-secondary">No plans to show</p>
                             {% endfor %}
                         </div>
                     </div>

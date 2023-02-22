@@ -15,6 +15,7 @@ from plans.models import *
 from apps.models import applists
 from accounts.forms import NotificationForm
 from accounts.models import Notification
+from django.contrib import messages
 
 logger=logging.getLogger()
 logging.basicConfig(
@@ -274,6 +275,7 @@ def add_customer_form(request, slug, billing_slug):
 def add_existing_user(request, slug, billing_slug):
     profiles = Profile.objects.filter(admin=False).exclude(apps__slug=slug)
     app = applists.objects.get(slug=slug)
+    messages.success(request, 'Existing User added Successfully')
     return render(request, 'add_existing_user.html', {'profiles': profiles, 'app': app, 'slug':slug, 'billing_slug':billing_slug})
 
 def add_customer_app(request, slug, billing_slug):

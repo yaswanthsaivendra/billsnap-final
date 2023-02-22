@@ -147,7 +147,7 @@ class LoginView(View):
                                 return redirect("showapps")
                             else:
                                 messages.success(request,"loggedin succesfully")
-                                return redirect("custdash")
+                                return redirect("index")
 
                         messages.error(
                             request, "Account is not active,please check your email"

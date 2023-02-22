@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+</style>
+</head>
+<body>
+
+<h1>upload details</h1>
+</br>
+</br>
+<table>
+  <tr>
+    {% for i in columns %}
+    <th>{{i}}</th>
+    {%endfor%}
+  </tr>
+{% for i in details %}
+    <tr>
+        <td>{{i.id}}
+        <td>{{ i.LatD }}</td>
+        <td>{{ i.LatM }}</td>
+        <td>{{ i.LatS }}</td>
+        <td>{{ i.NS }}</td>
+        <td>{{ i.LonD }}</td>
+        <td>{{ i.LonM }}</td>
+        <td>{{ i.LonS }}</td>
+        <td>{{ i.EW }}</td>
+
+        <td>{{ i.State }}</td>
+        <td>{{ i.State }}</td>
+    </tr>
+{%endfor%}
+</table>
+
+</body>
+</html>

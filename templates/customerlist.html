@@ -1,0 +1,234 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>billsnap</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous" />
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
+    integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous">
+    </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"
+    integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous">
+    </script>
+  <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,500;0,700;0,800;1,200;1,300;1,400;1,500;1,600;1,700&display=swap"
+    rel="stylesheet" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="{% static 'assets/styles.css'%}">
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+  <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js" ></script>
+  <style>
+    .first{
+      z-index: 100;
+    }
+  </style>
+</head>
+
+<body>
+
+  {% include "dashnav.html" %}
+
+  <div class="main mx-auto">
+    <div class="row">
+
+      {% include "dashsidebar.html" %}
+
+      <div class="col-md-7 flex-md-fill">
+        <div class="col right" id="customer-list">
+          <div class="d-flex align-items-center justify-content-between">
+            <h2 class="ps-1 pt-3" id="pspt">MY CUSTOMER</h2><br>
+            <button id="show" class="button button1 ">Filter</button>
+          </div>
+          
+          <dialog id="myFirstDialog" class="first">
+
+            <div class="topnav ">
+
+              <div class="search-container">
+
+                <button id="hide" class="b-primary b-secondary button3 p-2 px-3">x</button>
+                <h4>Status</h4>
+                <a href="javascript:void(0)" id="failedList"><button class="b-primary b-secondary"><i
+                      class="fa fa-external-link" aria-hidden="true"></i> False </button></a>
+                <a href="javascript:void(0)" id="passedList"><button class="b-primary b-secondary"><i class="fa fa-external-link"
+                      aria-hidden="true"></i> True </button></a>
+                
+              </div>
+
+            </div>
+            <br>
+
+          </dialog>
+        
+            
+          <div class="my-3 w-100">
+            <table class="table table-bordered w-100" id='table_filter'>
+              <thead>
+                <tr>
+                  <th>User Name</th>
+                  <th>Full Name</th>
+                  <th>Email</th>
+                  <th>Status</th>
+                  <th>Profile</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for i in details %}
+                <tr>
+                  <td>{{ i.user}}</td>
+                  <td>{{ i.full_name}}</td>
+                  <td>{{ i.contact_email}}</td>
+                  <td>{{ i.paid}}</td>
+                  <td>
+                    <a class='w3-button w3-small w3-round w3-green'
+                      href="{% url 'accounts:show-profile' slug=slug userslug=i.user billing_slug=billing_slug %}">Show Profile</a>
+                  </td>
+                  <td>
+                    <a class='w3-button w3-small w3-round w3-red' href="{% url 'remove-customer' slug i.user billing_slug %}">Remove
+                      User</a>
+                  </td>
+                </tr>
+                {%endfor%}
+              </tbody>
+            </table>
+
+          </div>
+
+          <br>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+ 
+  <script>
+    $(document).ready( function () {
+    $('#table_filter').DataTable();
+} );
+</script>
+  <script>
+    function myFunction() {
+      var input, filter, table, tr, td, i, txtValue;
+      input = document.getElementById("myInput");
+      filter = input.value.toUpperCase();
+      table = document.getElementById("table_filter");
+      tr = table.getElementsByTagName("tr");
+      for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[0];
+        if (td) {
+          txtValue = td.textContent || td.innerText;
+          if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            tr[i].style.display = "";
+          } else {
+            tr[i].style.display = "none";
+          }
+        }
+      }
+    }
+  </script>
+  <script>
+    document.getElementById('failedList').addEventListener('click', function () {
+
+      table = document.getElementById('table_filter');
+
+      tr = table.querySelector('tbody').getElementsByTagName('tr');
+
+      for (var i = 0; i < tr.length; i++) {
+        console.log(tr[i]);
+        if (tr[i].getElementsByTagName('td')[3].innerText=="False") {
+          tr[i].classList.remove('donotShow_row')
+          console.log('hihi')
+        } else {
+          tr[i].classList.add('donotShow_row')
+        }
+      }
+    })
+
+    document.getElementById('passedList').addEventListener('click', function () {
+      table = document.getElementById('table_filter');
+      tr = table.querySelector('tbody').getElementsByTagName('tr');
+      for (var i = 0; i < tr.length; i++) {
+        if (tr[i].getElementsByTagName('td')[3].innerText=="True") {
+          tr[i].classList.remove('donotShow_row')
+        } else {
+          tr[i].classList.add('donotShow_row')
+        }
+      }
+    })
+
+
+    // document.getElementById('averageList').addEventListener('click', function () {
+    //   table = document.getElementById('table_filter');
+    //   tr = table.querySelector('tbody').getElementsByTagName('tr');
+    //   for (var i = 0; i < tr.length; i++) {
+    //     if (tr[i].getElementsByTagName('td')[3].innerText.indexOf('Average') > -1) {
+    //       tr[i].classList.remove('donotShow_row')
+    //     } else {
+    //       tr[i].classList.add('donotShow_row')
+    //     }
+    //   }
+    // })
+  </script>
+
+
+  <script type="text/JavaScript">
+  (function() {    
+      var dialog = document.getElementById('myFirstDialog');    
+      document.getElementById('show').onclick = function() {    
+          dialog.show();    
+      };    
+      document.getElementById('hide').onclick = function() {    
+          dialog.close();    
+      };    
+  })();   
+  </script>
+
+
+  <script>
+    function openForm() {
+      document.getElementById("myForm").style.display = "block";
+    }
+
+    function closeForm() {
+      document.getElementById("myForm").style.display = "none";
+    }
+
+    "use strict";
+    let leftie = document.querySelector('.left')
+    let menuh = document.querySelector('.menu')
+    let closeh = document.querySelector('.close')
+    let right = document.querySelector('.right')
+
+
+    menuh.addEventListener('click', function () {
+      menuh.classList.toggle('d-none')
+      closeh.classList.toggle('d-none')
+      leftie.classList.toggle('d-none')
+      right.classList.toggle('overlay')
+
+    })
+    closeh.addEventListener('click', function () {
+      menuh.classList.toggle('d-none')
+      closeh.classList.toggle('d-none')
+      leftie.classList.toggle('d-none')
+      right.classList.toggle('overlay')
+
+    })
+  </script>
+</body>
+
+</html>

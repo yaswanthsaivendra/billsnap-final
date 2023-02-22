@@ -1,0 +1,210 @@
+{% load crispy_forms_tags %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>billsnap</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous" />
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
+        integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous">
+        </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"
+        integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous">
+        </script>
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,500;0,700;0,800;1,200;1,300;1,400;1,500;1,600;1,700&display=swap"
+        rel="stylesheet" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="{% static 'assets/styles.css'%}">
+    <link rel="stylesheet" href="{% static 'w3.css' %}" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+
+</head>
+
+<body class="w3-padding">
+
+    {% include "dashnav.html" %}
+
+    <div class="main mx-auto">
+        <div class="row" style="margin-top: 17px !important;">
+
+            {% include "dashsidebar.html" %}
+
+            <div class="col-md-7 flex-md-fill">
+                <div class="col right" id="customer-list">
+
+                    <h3 class="ps-1 pt-3">Estimates</h3><br>
+        <canvas id="myChart" style="width:100%;max-width:600px"></canvas><br>
+        <div class="table-responsive">
+          <table class="table table-bordered" id='table_filter'>
+            <thead>
+              <tr>
+                <th>Estimate id</th>
+                <th>Task id</th>
+                <th>Activity</th>
+                <th>Duration estimate</th>
+                <th>Notes</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>212 </td>
+                <td>1-6d</td>
+                <td>regular</td>
+                <td>2 days</td>
+                <td>Done</td>
+              </tr>
+              <tr>
+                <td>123</td>
+                <td>1-5d</td>
+                <td>regular</td>
+                <td>2 days</td>
+                <td>pending</td>
+              </tr>
+              <tr>
+                <td>152 </td>
+                <td>1-8d</td>
+                <td>regular</td>
+                <td>2 days</td>
+                <td>Done</td>
+              </tr>
+              <tr>
+                <td>129 </td>
+                <td>1-3d</td>
+                <td>regular</td>
+                <td>2 days</td>
+                <td>pending</td>
+              </tr>
+              <tr>
+                <td>912 </td>
+                <td>1-6d</td>
+                <td>regular</td>
+                <td>2 days</td>
+                <td>waiting</td>
+              </tr>
+              <tr>
+                <td>712 </td>
+                <td>1-5d</td>
+                <td>regular</td>
+                <td>2 days</td>
+                <td>approved</td>
+              </tr>
+
+            </tbody>
+          </table>
+
+        </div>
+
+
+
+
+
+
+
+        <script>
+          var xValues = [50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150];
+          var yValues = [7, 8, 8, 9, 9, 9, 10, 11, 14, 14, 15];
+
+          new Chart("myChart", {
+            type: "line",
+            data: {
+              labels: xValues,
+              datasets: [{
+                fill: false,
+                lineTension: 0,
+                backgroundColor: "black",
+                borderColor: "#3dcd58",
+                data: yValues
+              }]
+            },
+            options: {
+              legend: { display: false },
+              scales: {
+                yAxes: [{ ticks: { min: 6, max: 16 } }],
+              }
+            }
+          });
+        </script>
+        <div id="piechart"></div>
+
+
+        <script type="text/javascript">
+          // Load google charts
+          google.charts.load('current', { 'packages': ['corechart'] });
+          google.charts.setOnLoadCallback(drawChart);
+
+          // Draw the chart and set the chart values
+          function drawChart() {
+            var data = google.visualization.arrayToDataTable([
+              ['Task', 'Hours per Day'],
+              ['Work', 8],
+              ['pending', 2],
+              ['approval', 4],
+              ['waiting', 2],
+              ['done', 8]
+            ]);
+
+            // Optional; add a title and set the width and height of the chart
+            var options = { 'title': 'My Average Day', 'width': 550, 'height': 400 };
+
+            // Display the chart inside the <div> element with id="piechart"
+            var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+            chart.draw(data, options);
+          }
+        </script>
+
+
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+    </div>
+    </div>
+    </div>
+    </section>
+
+    <script>
+        function addCustomerApp(obj) {
+            var url = obj.getAttribute('url') + '?username=' + obj.value;
+            $.ajax({
+                type: 'GET',
+                url: url,
+                success: function (resp) {
+                    document.location.reload(true);
+                }
+            })
+        }
+        function addCustomerAppSearch(obj) {
+
+            var inp = document.getElementById('search');
+            var url = inp.getAttribute('url') + '?username=' + inp.value;
+            $.ajax({
+                type: 'GET',
+                url: url,
+                success: function (resp) {
+                    document.location.reload(true);
+                }
+            })
+        }
+
+    </script>
+
+</body>
+
+</html>

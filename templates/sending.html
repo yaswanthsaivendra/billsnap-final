@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h1>Index page</h1>
+<img src="https://img.freepik.com/free-vector/invoice-concept-illustration_114360-2485.jpg" alt="Italian Trulli" width=300></img><br>
+
+{% if user.is_authenticated %}
+    <button type="button"><a href="{% url 'dash' %}">View Dashboard</a></button>
+    <button type="button"><a href="{% url 'logout' %}">LogOut</a></button>
+{% else %}
+    <button><a href="{% url 'register' %}">Register</a></button>
+    <p>OR</p>
+    <button><a href="{% url 'login' %}">LogIn</a></button>
+{% endif %}
+
+{%for f in slug%}
+<p>{{f}}</p>
+{%endfor%}
+
+</body>
+</html>

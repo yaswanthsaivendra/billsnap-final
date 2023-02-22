@@ -1,0 +1,39 @@
+
+
+<div class="left d-none d-md-block col-md-4">
+    <div class="menu-frag d-flex flex-column p-3 ps-4 gap-3">
+        <div>
+            <i class="fa-solid fa-table-columns"></i>
+            <a href="{% url 'custdash' %}">&nbsp;Dashboard</a>
+        </div>
+        <div>
+            <i class="fa-solid fa-sack-dollar"></i>
+            <a href="">&nbsp;payments</a>
+        </div>
+        <div>
+            <i class="fa-solid fa-gear"></i>
+            <a href="{% url 'customer-plans' %}">&nbsp;plans</a>
+        </div>
+    </div>
+    <div class="menu-frag mt-3 ps-3">
+        <div class="customer-frag d-flex flex-column p-3 pt-1 gap-3">
+            <div>
+                <i class="fa-solid fa-user-plus"></i>
+                <a href="">&nbsp;Messages</a>
+            </div>
+            <div>
+                <i class="fa-solid fa-list"></i>
+                <a href="">&nbsp;My services</a>
+            </div>
+            <div>
+                <i class="fa-solid fa-message"></i>
+                <a href="{% url 'customer-notifications' %}">&nbsp;notifications</a>
+            </div>
+        </div>
+    </div>
+    <div class="d-flex mb-4">
+        <button class="btn btn-primary ms-3"><a class="text-decoration-none text-white" href="">Get
+                Support</a></button>
+    </div>
+
+</div>

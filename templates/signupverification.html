@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://fonts.googleapis.com/css?family=Lato:400,700,900" rel="stylesheet">
+        <title>Signup verification</title>
+        <style type="text/css">
+      /* Global Resets */
+      body,
+      .background_main,
+      p,
+      table,
+      td,
+      div {
+        font-family: 'Lato', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      }
+      img {
+        border: none;
+        -ms-interpolation-mode: bicubic;
+        max-width: 100%;
+      }
+      p {
+        padding-bottom: 2px;
+      }
+      body {
+        background: #ececec;
+        font-size: 17px;
+        line-height: 24px;
+        margin: 0;
+        padding: 0;
+        -ms-text-size-adjust: 100%;
+        -webkit-text-size-adjust: 100%;
+      }
+      table {
+        border-collapse: collapse;
+        mso-table-lspace: 0pt;
+        mso-table-rspace: 0pt;
+        width: 100%;
+      }
+      td {
+        font-size: 17px;
+        line-height: 24px;
+        vertical-align: top;
+      }
+      /* Footer */
+      .email_footer td,
+      .email_footer p,
+      .email_footer span,
+      .email_footer a {
+        font-size: 15px;
+        text-align: center;
+        color: #434245;
+      }
+      .email_footer td {
+        padding-top:0px;
+      }
+      .preheader {
+        display: none;
+        mso-hide: all;
+      }
+      /* Typography */
+      h1,
+      h2,
+      h3,
+      h4 {
+        color: #434245;
+        font-weight: 400;
+        line-height: 1.4;
+        margin: 0;
+        margin-bottom: 12px;
+      }
+      h1 {
+        font-size: 30px;
+        line-height: 36px;
+        font-weight: 900;
+        letter-spacing: -.75px;
+        text-align: left;
+      }
+      p,
+      ul,
+      ol {
+        font-size: 17px;
+        line-height: 24px;
+        font-weight: normal;
+        margin: 0;
+        margin-bottom: 15px;
+      }
+      p li,
+      ul li,
+      ol li {
+        list-style-position: inside;
+        margin-left: 5px;
+      }
+      a {
+        color: #3498db;
+        text-decoration: none;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+      .button_link::after {
+        position: absolute;
+        content: '';
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        border-radius: 4px;
+      }
+      .button_link:hover::after {
+        box-shadow: inset 0 -2px #237c4a;
+      }
+      .button_link.is_secondary:hover::after {
+        box-shadow: none;
+      }
+      .button_link.plum:hover {
+        background-color: #4a154b !important;
+        border-color: #4a154b !important;
+      }
+      .button_link_wrapper.plum:hover {
+        background-color: #4a154b !important;
+      }
+      .button_link.plum:hover::after {
+        box-shadow: none;
+      }
+      .preview_text {
+        color: transparent;
+        display: none;
+        height: 0;
+        max-height: 0;
+        max-width: 0;
+        opacity: 0;
+        overflow: hidden;
+        mso-hide: all;
+        visibility: hidden;
+        width: 0;
+        font-size: 1px;
+        line-height: 1px;
+      }
+      .preview_text a {
+        color: #3AA3E3 !important;
+        font-weight: bold;
+      }
+      /* Responsive and Mobile Friendly Styles */
+      /* Yahoo Mail has a history of rendering all media query styles with class selectors unless class is used as an attribute */
+      @media only screen and (max-width: 600px) {
+        table[class="background_main"] .sm_full_width {
+          width: 100% !important;
+        }
+        table[class="background_main"] .sm_90_percent_width {
+          width: 90% !important;
+          padding: 16px !important;
+          text-align: center !important;
+          float: none !important;
+        }
+        table[class="background_main"] .sm_side_padding {
+          padding-right: 8px !important;
+          padding-left: 8px !important;
+          float: none !important;
+        }
+        table[class="background_main"] .sm_small_top_padding {
+          padding-top: 8px !important;
+        }
+        table[class="background_main"] .sm_top_padding {
+          padding-top: 16px !important;
+        }
+        table[class="background_main"] .sm_auto_width {
+          width: auto !important;
+        }
+        table[class="background_main"] .sm_auto_height {
+          height: auto !important;
+        }
+        table[class="background_main"] .sm_border_box {
+          box-sizing: border-box !important;
+        }
+        table[class="background_main"] .sm_block {
+          display: block !important;
+        }
+        table[class="background_main"] .sm_inline_block {
+          display: inline-block !important;
+        }
+        table[class="background_main"] .sm_table {
+          display: table !important;
+        }
+        table[class="background_main"] .sm_no_side_padding {
+          padding-right: 0 !important;
+          padding-left: 0 !important;
+        }
+        table[class="background_main"] .sm_no_border_radius {
+          border-radius: 0 !important;
+        }
+        table[class="background_main"] .sm_no_padding {
+          padding-right: 0 !important;
+          padding-left: 0 !important;
+        }
+        table[class="background_main"] .sm_os_icons_height {
+          /* this is to make the parent element the same height as the inline-block img inside */
+          height: 44px;
+        }
+        .social_img_bottom_margin {
+          /*this class is for social_user_outreach email only*/
+          margin-bottom: 20px !important;
+        }
+        .social_p_bottom_margin {
+          /*this class is for social_user_outreach email only*/
+          margin-bottom: 40px !important;
+        }
+      }
+      /* More client-specific styles */
+      @media all {
+        .ExternalClass {
+          width: 100%;
+        }
+        .ExternalClass,
+        .ExternalClass p,
+        .ExternalClass span,
+        .ExternalClass font,
+        .ExternalClass td,
+        .ExternalClass div {
+          line-height: 100%;
+        }
+        .email_footer a {
+          color: #434245 !important;
+          font-family: inherit !important;
+          font-size: inherit !important;
+          font-weight: inherit !important;
+          line-height: inherit !important;
+          text-decoration: none !important;
+        }
+      }
+      a:hover {
+        text-decoration: underline !important;
+      }
+      pre,
+      code {
+        --saf-0: rgba(var(--sk_foreground_low, 29, 28, 29), 0.13);
+        border: 1px solid var(--saf-0);
+        background: rgba(var(--sk_foreground_min, 29, 28, 29), 0.04);
+        font-family: 'Monaco', 'Menlo', 'Consolas', 'Courier New', monospace !important;
+        font-size: 12px;
+        line-height: 1.50001;
+        font-variant-ligatures: none;
+        white-space: pre;
+        white-space: pre-wrap;
+        word-wrap: break-word;
+        word-break: normal;
+        -webkit-tab-size: 4;
+        -moz-tab-size: 4;
+        -o-tab-size: 4;
+        tab-size: 4;
+      }
+      code {
+        color: #e01e5a;
+        padding: 2px 3px 1px;
+        border-radius: 3px;
+      }
+      pre {
+        margin-bottom: 16px;
+        padding: 8px;
+        border-radius: 4px;
+      }
+      blockquote {
+        position: relative;
+        margin-bottom: 16px;
+        padding-left: 16px;
+        border-left: rgba(var(--sk_foreground_low_solid, 221, 221, 221), 1);
+        border-left-width: 4px;
+        border-left-style: solid;
+      }
+        </style>
+    </head>
+    <body>
+        <div class="preheader plaintext_ignore" style="font-size: 1px; display: none !important;"> Here are your account details, along with some tips to help you get started.</div>
+        <div class="plaintext_ignore" style="display: none; max-height: 0px; overflow: hidden;"> &nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌ &nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌ &nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌ &nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌ &nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌ &nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌ &nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌ &nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp; &nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌ &nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌ &nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌ &nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌ &nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌ &nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;</div>
+        <table style="background-color:#ececec; padding-top: 20px;color: #434245;width: 100%;-webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;   border: 0; text-align: center; border-collapse: collapse;" class="background_main">
+            <tr>
+                <td style="vertical-align: top; padding: 0">
+                    <center>
+                        <table id="body" class="card" style="border: 0; border-collapse: collapse; margin: 0 auto; background:#ececec; border-radius: 8px; margin-bottom: 0px;background-color:#ececec">
+                            <tr>
+                                <td style="width: 546px; vertical-align: top;">
+                                    <div style="max-width: 600px; margin: 0 auto;background-color:white;">
+                                        <img
+                                            width="200"
+                                            height="110"
+                                            style="margin-top: 0; margin-right: 0; margin-bottom:0px; margin-left: 0px; padding-right: 30px; padding-left: 10px;"
+                                            src="https://www.techsnap.in/media/storage/logo_pink.png"
+                                            alt=""
+                                        >
+                                        <h1 style="font-size: 30px; padding-right: 30px; padding-left: 30px; letter-spacing:1px;">Thanks For Signing Up !</h1>
+                                        <p style="font-size: 17px; margin-left: 30px; margin-right: 30px;">This confirms that your email address is correct so that we can use it to help you recover your password in Future</p>
+                                        <div style="padding-right: 30px; padding-left: 30px; padding-bottom: 30px;">
+                                            <h4 class="plaintext_only" style="display: none">Workspace name: Really Good Emails</h4>
+                                            <table style="table-layout: fixed; border: 1px solid #A0A0A2; border-radius: 8px; padding: 20px 0; margin-top: 20px; width: 100%; border-collapse: separate; text-align: center">
+                                                <tr>
+                                                    <td style="vertical-align: middle;">
+                                                        <div style="margin: auto; height: 38px; width: 38px; min-width: 38px; border-radius: 4px; color: #FFFFFF; font-size: 18px; line-height: 38px; mso-line-height-rule: exactly; mso-text-raise: 10px; vertical-align: middle; text-align: center; background-color: #ff00b1;">AT</div>
+                                                        <h3 class="plaintext_ignore" style="font-weight: 900; padding-top: 10px; margin-bottom: 7px; font-size: 21px; font-size: 21px; margin-bottom: 2px; width: 70%; margin: auto; text-align: center; margin-top: 0;">Complete Registration</h3>
+                                                        <h4 style="margin-bottom: 2px;font-size: 17px; margin-bottom: 12px;">
+                                                            <a style="white-space: nowrap; color: #717274; text-decoration: none !important;">You're Almost In !</a>
+                                                        </h4>
+                                                        <table style="width: 100%; text-align: center;" class="sm_table">
+                                                            <tr style="width: 100%;">
+                                                                <td style="width: 100%;">
+                                                                    <span style="display: inline-block; position:relative; border-radius:4px; background-color:##0043ff; " class="button_link_wrapper plum">
+                                                                        <a class="button_link  plum" href="##########" style="border-top:13px solid; border-bottom:13px solid; border-right:24px solid; border-left:24px solid; border-color:#0043ff; border-radius:4px; background-color:#0043ff; color:#ffffff; font-size:16px; line-height:18px; word-break:break-word;  display: inline-block; text-align: center; font-weight: 900; text-decoration: none !important;">Confirm Your Email</a>
+                                                                    </span>
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                        <h1 style="font-size: 30px; padding-right: 30px; padding-left: 30px;">Tips for getting started</h1>
+                                        <div style="padding-right: 30px; padding-left: 30px; margin: 0; margin-top: 24px">
+                                            <table style="border-collapse: collapse; border: 0;height: 70px; table-layout: fixed; word-wrap: break-word; border-radius: 6px;">
+                                                <tr>
+                                                    <td style="width: 40px;">
+                                                        <img style="padding: 10px 0; display: block; margin-right: auto; margin-left: auto; height: auto;" width="40" src="https://a.slack-edge.com/d51da/img/email/team_white_background@2x.png">
+                                                    </td>
+                                                    <td>
+                                                        <p style="font-size: 17px; margin-left: 30px; margin-right: 30px; margin-bottom: 0">
+                                                            <span style="font-weight: 900;">Choose Your Career</span>
+                                                        </p>
+                                                        <p style="font-size: 17px; margin-left: 30px; margin-right: 30px;">We help you to know about trending jobs and to choose career based on interests and skills</p>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                        <div style="padding-right: 30px; padding-left: 30px; margin: 0;">
+                                            <table style="border-collapse: collapse; border: 0;height: 70px; table-layout: fixed; word-wrap: break-word; border-radius: 6px;">
+                                                <tr>
+                                                    <td style="width: 40px;">
+                                                        <img style="padding: 10px 0; display: block; margin-right: auto; margin-left: auto; height: auto;" width="40" src="https://a.slack-edge.com/d51da/img/email/channel_white_background@2x.png">
+                                                    </td>
+                                                    <td>
+                                                        <p style="font-size: 17px; margin-left: 30px; margin-right: 30px; margin-bottom: 0">
+                                                            <span style="font-weight: 900;">Enroll into Courses</span>
+                                                        </p>
+                                                        <p style="font-size: 17px; margin-left: 30px; margin-right: 30px;">We provide courses in three different formats like blogs, video and live mentorship</p>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                        <div style="padding-right: 30px; padding-left: 30px; margin: 0;">
+                                            <table style="border-collapse: collapse; border: 0;height: 70px; table-layout: fixed; word-wrap: break-word; border-radius: 6px;">
+                                                <tr>
+                                                    <td style="width: 40px;">
+                                                        <img style="padding: 10px 0; display: block; margin-right: auto; margin-left: auto; height: auto;" width="40" src="https://a.slack-edge.com/d51da/img/email/download_white_background@2x.png">
+                                                    </td>
+                                                    <td>
+                                                        <p style="font-size: 17px; margin-left: 30px; margin-right: 30px; margin-bottom: 0">
+                                                            <span style="font-weight: 900;">Start Doing Projects</span>
+                                                        </p>
+                                                        <p style="font-size: 17px; margin-left: 30px; margin-right: 30px;">Apply your learned skills and build some real world applications</p>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                        <div class="sm_inline_block sm_90_percent_width" style="text-align: center; padding-right: 16px; vertical-align: middle; font-size: 30px; margin: 8px 0 36px 0">
+                                            <table style="width: 100%; text-align: center;" class="sm_table">
+                                                <tr style="width: 100%;">
+                                                    <td style="width: 100%;">
+                                                        <span style="display: inline-block; position:relative; border-radius:4px; background-color:#000; " class="button_link_wrapper plum">
+                                                            <a class="button_link  plum" href="https://www.techsnap.in/careerpath" style="border-top:13px solid; border-bottom:13px solid; border-right:24px solid; border-left:24px solid; border-color:#000; border-radius:4px; background-color:#000; color:#ffffff; font-size:16px; line-height:18px; word-break:break-word;  display: inline-block; text-align: center; font-weight: 900; text-decoration: none !important;">Explore All</a>
+                                                        </span>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                        <p style="font-size: 17px; margin-left: 30px; margin-right: 30px; margin-top: 20px;">If you didn't create an account in
+                                            <a href="mailto:help@slack.com">techsnap.in</a> Please Ignore this message
+                                        </p>
+                                        <p style="text-align:center;font-size: 12px; margin-right: 30px; margin-top: 10px;">you have recieved this Notification beacuse you signed up for techsnap eduactional services</p>
+                                        <div>
+                                            <span style="padding-top:30px;display: block; color:white; font-size: 15px;text-align: center;background-color:black;"> Made with &#10084;&#65039; in India
+                                                <br>© 2021 Techsnap Educations LLP. All Rights Reserved. &nbsp;|&nbsp;Chennai
+                                            </span>
+                                        </div>
+                                        <div style="padding-top:20px;padding-bottom:30px;font-size: 15px;text-align: center;background-color:black;">
+                                            <span>
+                                                <a href="https://www.techsnap.in/" style="color:white; text-decoration: underline !important;">Read Our Blog</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                <a href="https://www.techsnap.in/contact" style="color:white;font-size: 15px; text-decoration: underline !important;">Contact us</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                <a href="https://www.techsnap.in/courses" style="color:white; text-decoration: underline !important;">View Courses</a>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </center>
+                </td>
+            </tr>
+        </table>
+    </body>
+</html>

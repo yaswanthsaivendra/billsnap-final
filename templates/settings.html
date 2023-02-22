@@ -1,0 +1,35 @@
+{% extends 'dashaside.html' %}
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        {% block css %}
+        <link rel="stylesheet" href="{% static 'dashboard/dashboard.css' %}">
+        <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+        {% endblock css %}
+         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+         <title>{% block title %}settings{% endblock title %}</title>
+       </head>
+<body>
+    {% block body %}
+    <section class="home-section">
+        <nav>
+          <div class="sidebar-button">
+          <i class='bx bx-menu sidebarBtn'></i>
+            <span class="dashboard"> settings</span>
+          </div>
+          <button type="button"><a href="{%url 'logout' %}">LogOut</a></button>
+        </nav>
+
+
+    <div class="home-content">
+        <img src="https://laravelnews.imgix.net/images/global-settings-featured.png?ixlib=php-3.3.1" alt="Italian Trulli" width=300></img><br><br>
+        <label for="custupload">customer upload list</label>
+        <textarea rows = "10" cols = "60" name = "custupload" id="custupload">
+      </textarea>
+    </div>
+</section>
+{% endblock body %}
+</body>
+</html>

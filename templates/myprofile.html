@@ -1,0 +1,986 @@
+{% load static %}
+{% load crispy_forms_tags %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>billsnap</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous" />
+	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
+		integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous">
+		</script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"
+		integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous">
+		</script>
+	<link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+	<link
+		href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,500;0,700;0,800;1,200;1,300;1,400;1,500;1,600;1,700&display=swap"
+		rel="stylesheet" />
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="{% static 'assets/styles.css'%}">
+	<style>
+		.menu-frag a:active {
+			color: blue;
+			;
+		}
+
+		.first-sidebar {
+			position: fixed;
+			top: 76px;
+			left: 0;
+		}
+
+		.second {
+			visibility: hidden;
+		}
+
+		body {
+			font-family: Arial;
+		}
+
+		/* Style the tab */
+		.tab {
+			overflow: hidden;
+			border: 1px solid #ccc;
+			background-color: #f1f1f1;
+		}
+
+		/* Style the buttons inside the tab */
+		.tab button {
+			background-color: inherit;
+			float: left;
+			border: none;
+			outline: none;
+			cursor: pointer;
+			padding: 14px 16px;
+			transition: 0.3s;
+			font-size: 17px;
+		}
+
+		/* Change background color of buttons on hover */
+		.tab button:hover {
+			background-color: #ddd;
+		}
+
+		/* Create an active/current tablink class */
+		.tab button.active {
+			background-color: #ccc;
+		}
+
+		/* Style the tab content */
+		.tabcontent {
+			display: none;
+			padding: 6px 12px;
+			/*border: 1px solid #ccc;
+	border-top: none;*/
+		}
+	</style>
+</head>
+
+<body>
+	{% include "dashnav.html" %}
+
+
+
+
+
+
+	<div class="main mx-auto">
+		<div class="row">
+
+			<!-- sidebar -->
+			{% include "dashsidebar.html" %}
+
+
+			<!-- main content -->
+			<div class="col-md-7  flex-md-fill m-3">
+				{% include 'messages.html' %}
+
+				<div class="col right create-customer ps-0 pe-4 me-2" id="">
+
+
+					<div class="profile">
+						<div class="profile-header">
+							<!-- BEGIN profile-header-cover -->
+
+							<!-- END profile-header-cover -->
+							<!-- BEGIN profile-header-content -->
+							<div class="profile-header-content d-flex">
+								<!-- BEGIN profile-header-img -->
+								<div class="flex-fill flex-start">
+									<div class="profile-header-img">
+										<img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="">
+									</div>
+									<!-- END profile-header-img -->
+									<!-- BEGIN profile-header-info -->
+									<div class="profile-header-info">
+										<h4 class="m-t-10 m-b-5" style="color: black;">{{profile.user.username}} </h4>
+										<!-- <p class="m-b-10" style="color: black;">Edit Profile</p>
+										<p></p> -->
+									</div>
+									<!-- END profile-header-info -->
+								</div>
+								<!-- BEGIN profile-header-tab -->
+								<div class="d-flex align-items-center justify-content-end me-5">
+									<div class="bs-primary py-2 px-3" type="button" data-bs-toggle="modal"
+										data-bs-target="#staticBackdrop">Edit Profile</div>
+									<!-- Edit profile modal-->
+									<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static"
+										data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
+										aria-hidden="true">
+										<div class="modal-dialog modal-lg modal-dialog-scrollable">
+											<div class="modal-content">
+												<div class="modal-body">
+													<div class="modal-header border-bottom-0 pt-0">
+														<h5 class="modal-title mb-2" id="staticBackdropLabel">Basic
+															Details</h5>
+														<button type="button" class="btn-close" data-bs-dismiss="modal"
+															aria-label="Close"></button>
+													</div>
+													<form class="mb-4 mt-1"
+														action="{% url 'accounts:update-profile' billing_slug=billing_slug slug=slug userslug=userslug %}"
+														method="POST">
+														{% csrf_token %}
+
+														<div class="container-fluid">
+															<div class="row g-3 align-items-center">
+																<div class="w-100 m-0"></div>
+																<div class="col-auto mt-0">
+																	<label for="state" class="col-form-label">Full
+																		Name:</label>
+																</div>
+																<div class="col mt-0">
+																	<input type="text" id="state"
+																		class="form-control p-2"
+																		aria-describedby="utilitystate" name="full_name"
+																		value="{% if profile.full_name %}{{profile.full_name}}{% endif %}"
+																		required>
+																</div>
+																<div class="w-100 m-0"></div>
+																<div class="col-auto mt-0">
+																	<label for="state"
+																		class="col-form-label">Status:</label>
+																</div>
+																<div class="col mt-0">
+																	<input type="text" id="state"
+																		class="form-control p-2"
+																		aria-describedby="utilitystate" name="status"
+																		value="{% if profile.status %}{{profile.status}}{% endif %}"
+																		required>
+																</div>
+																<div class="w-100 m-0"></div>
+															</div>
+														</div>
+
+														<h5 class="modal-title mb-4" id="staticBackdropLabel">Utility
+															Details</h5>
+
+														<div class="container-fluid">
+															<div class="row g-3 align-items-center">
+																<div class="col-auto mt-0">
+																	<label for="state" class="col-form-label">Utility
+																		Name:</label>
+																</div>
+																<div class="col mt-0">
+																	<input type="text" id="state"
+																		class="form-control p-2"
+																		aria-describedby="utilitystate"
+																		name="utility_name"
+																		value="{% if profile.utility_name %}{{profile.utility_name}}{% endif %}"
+																		required>
+																</div>
+																<div class="w-100 m-0"></div>
+																<div class="col-auto mt-0">
+																	<label for="state" class="col-form-label">Utility
+																		Short Name:</label>
+																</div>
+																<div class="col mt-0">
+																	<input type="text" id="state"
+																		class="form-control p-2"
+																		aria-describedby="utilitystate"
+																		name="utility_short_name"
+																		value="{% if profile.utility_short_name %}{{profile.utility_short_name}}{% endif %}"
+																		required>
+																</div>
+																<div class="w-100 m-0"></div>
+																<div class="col-auto mt-0">
+																	<label for="state" class="col-form-label">Utility
+																		State:</label>
+																</div>
+																<div class="col mt-0">
+																	<input type="text" id="state"
+																		class="form-control p-2"
+																		aria-describedby="utilitystate"
+																		name="utility_state"
+																		value="{% if profile.utility_state %}{{profile.utility_state}}{% endif %}"
+																		required>
+																</div>
+																<div class="w-100 m-0"></div>
+																<div class="col-auto mt-0">
+																	<label for="state" class="col-form-label">Utility
+																		District:</label>
+																</div>
+																<div class="col mt-0">
+																	<input type="text" id="state"
+																		class="form-control p-2"
+																		aria-describedby="utilitystate"
+																		name="utility_district"
+																		value="{% if profile.utility_district %}{{profile.utility_district}}{% endif %}"
+																		required>
+																</div>
+																<div class="w-100 m-0"></div>
+																<div class="col-auto mt-0">
+																	<label for="state" class="col-form-label">Utility
+																		Country:</label>
+																</div>
+																<div class="col mt-0">
+																	<input type="text" id="state"
+																		class="form-control p-2"
+																		aria-describedby="utilitystate"
+																		name="utility_country"
+																		value="{% if profile.utility_country %}{{profile.utility_country}}{% endif %}"
+																		required>
+																</div>
+																<div class="w-100 m-0"></div>
+																<div class="col-auto mt-0">
+																	<label for="state" class="col-form-label">Utility
+																		Postal Code:</label>
+																</div>
+																<div class="col mt-0">
+																	<input type="text" id="state"
+																		class="form-control p-2"
+																		aria-describedby="utilitystate"
+																		name="utility_postalcode"
+																		value="{% if profile.utility_postalcode %}{{profile.utility_postalcode}}{% endif %}"
+																		required>
+																</div>
+																<div class="w-100 m-0"></div>
+																<div class="col-auto mt-0">
+																	<label for="state" class="col-form-label">Utility
+																		Address:</label>
+																</div>
+																<div class="col mt-0">
+																	<input type="text" id="state"
+																		class="form-control p-2"
+																		aria-describedby="utilitystate"
+																		name="utility_address"
+																		value="{% if profile.utility_address %}{{profile.utility_address}}{% endif %}"
+																		required>
+																</div>
+															</div>
+														</div>
+
+														<h5 class="modal-title mb-4" id="staticBackdropLabel">Contact
+															Details</h5>
+
+														<div class="container-fluid">
+															<div class="row g-3 align-items-center">
+																<div class="col-auto mt-0">
+																	<label for="state" class="col-form-label">Contact
+																		Person:</label>
+																</div>
+																<div class="col mt-0">
+																	<input type="text" id="state"
+																		class="form-control p-2"
+																		aria-describedby="utilitystate"
+																		name="contact_person"
+																		value="{% if profile.contact_person %}{{profile.contact_person}}{% endif %}"
+																		required>
+																</div>
+																<div class="w-100 m-0"></div>
+																<div class="col-auto mt-0">
+																	<label for="state" class="col-form-label">Contact
+																		Email:</label>
+																</div>
+																<div class="col mt-0">
+																	<input type="text" id="state"
+																		class="form-control p-2"
+																		aria-describedby="utilitystate"
+																		name="contact_email"
+																		value="{% if profile.contact_email %}{{profile.contact_email}}{% endif %}"
+																		required>
+																</div>
+																<div class="w-100 m-0"></div>
+																<div class="col-auto mt-0">
+																	<label for="state" class="col-form-label">Contact
+																		Phone no:</label>
+																</div>
+																<div class="col mt-0">
+																	<input type="text" id="state"
+																		class="form-control p-2"
+																		aria-describedby="utilitystate"
+																		name="contact_phnum"
+																		value="{% if profile.contact_phnum %}{{profile.contact_phnum}}{% endif %}"
+																		required>
+																</div>
+																<div class="w-100 m-0"></div>
+																<div class="col-auto mt-0">
+																	<label for="state" class="col-form-label">Contact
+																		Mobile:</label>
+																</div>
+																<div class="col mt-0">
+																	<input type="text" id="state"
+																		class="form-control p-2"
+																		aria-describedby="utilitystate"
+																		name="contact_mobile"
+																		value="{% if profile.contact_mobile %}{{profile.contact_mobile}}{% endif %}"
+																		required>
+																</div>
+																<div class="w-100 m-0"></div>
+																<div class="col-auto mt-0">
+																	<label for="state" class="col-form-label">Contact
+																		Designation:</label>
+																</div>
+																<div class="col mt-0">
+																	<input type="text" id="state"
+																		class="form-control p-2"
+																		aria-describedby="utilitystate"
+																		name="contact_designation"
+																		value="{% if profile.contact_designation %}{{profile.contact_designation}}{% endif %}"
+																		required>
+																</div>
+																<div class="w-100 m-0"></div>
+																<div class="col-auto mt-0">
+																	<label for="state" class="col-form-label">Contact
+																		Landline:</label>
+																</div>
+																<div class="col mt-0">
+																	<input type="text" id="state"
+																		class="form-control p-2"
+																		aria-describedby="utilitystate"
+																		name="contact_landline"
+																		value="{% if profile.contact_landline %}{{profile.contact_landline}}{% endif %}"
+																		required>
+																</div>
+															</div>
+														</div>
+
+														<h5 class="modal-title mb-4" id="staticBackdropLabel">Emergency
+															Details</h5>
+														<div class="container-fluid">
+															<div class="row g-3 align-items-center">
+																<div class="col-auto mt-0">
+																	<label for="state" class="col-form-label">Emergency
+																		Person:</label>
+																</div>
+																<div class="col mt-0">
+																	<input type="text" id="state"
+																		class="form-control p-2"
+																		aria-describedby="utilitystate"
+																		name="emergency_person"
+																		value="{% if profile.emergency_person %}{{profile.emergency_person}}{% endif %}"
+																		required>
+																</div>
+																<div class="w-100 m-0"></div>
+																<div class="col-auto mt-0">
+																	<label for="state" class="col-form-label">Emergency
+																		Alt Person:</label>
+																</div>
+																<div class="col mt-0">
+																	<input type="text" id="state"
+																		class="form-control p-2"
+																		aria-describedby="utilitystate"
+																		name="emergency_altperson"
+																		value="{% if profile.emergency_altperson %}{{profile.emergency_altperson}}{% endif %}"
+																		required>
+																</div>
+																<div class="w-100 m-0"></div>
+																<div class="col-auto mt-0">
+																	<label for="state" class="col-form-label">Emergency
+																		Phone no:</label>
+																</div>
+																<div class="col mt-0">
+																	<input type="text" id="state"
+																		class="form-control p-2"
+																		aria-describedby="utilitystate"
+																		name="emergency_mobile"
+																		value="{% if profile.emergency_mobile %}{{profile.emergency_mobile}}{% endif %}"
+																		required>
+																</div>
+																<div class="w-100 m-0"></div>
+																<div class="col-auto mt-0">
+																	<label for="state" class="col-form-label">Emergency
+																		Alt Phone no:</label>
+																</div>
+																<div class="col mt-0">
+																	<input type="text" id="state"
+																		class="form-control p-2"
+																		aria-describedby="utilitystate"
+																		name="emergency_altmobile"
+																		value="{% if profile.emergency_altmobile %}{{profile.emergency_altmobile}}{% endif %}"
+																		required>
+																</div>
+																<div class="w-100 m-0"></div>
+																<div class="col-auto mt-0">
+																	<label for="state" class="col-form-label">Emergency
+																		Office Address:</label>
+																</div>
+																<div class="col mt-0">
+																	<input type="text" id="state"
+																		class="form-control p-2"
+																		aria-describedby="utilitystate"
+																		name="emergency_officeaddress"
+																		value="{% if profile.emergency_officeaddress %}{{profile.emergency_officeaddress}}{% endif %}"
+																		required>
+																</div>
+																<div class="w-100 m-0"></div>
+																<div class="col-auto mt-0">
+																	<label for="state" class="col-form-label">Emergency
+																		Alt Office Address:</label>
+																</div>
+																<div class="col mt-0">
+																	<input type="text" id="state"
+																		class="form-control p-2"
+																		aria-describedby="utilitystate"
+																		name="emergency_altofficeaddress"
+																		value="{% if profile.emergency_altofficeaddress %}{{profile.emergency_altofficeaddress}}{% endif %}"
+																		required>
+																</div>
+															</div>
+														</div>
+													</div>
+												<div class="modal-footer">
+													<button type="button" class="modal-btn btn btn-secondary"
+														data-bs-dismiss="modal">cancel</button>
+													<button class="modal-btn btn btn-primary"
+														type="submit">Save</button>
+												</div>
+													</form>
+											</div>
+										</div>
+									</div>
+									<div class="bs-primary  py-2 px-3 mx-2" type="button" data-bs-toggle="modal"
+										data-bs-target="#staticBackdrop1">Edit plans</div>
+									<!-- Edit plan modal-->
+									<div class="modal fade" id="staticBackdrop1" data-bs-backdrop="static"
+										data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
+										aria-hidden="true">
+										<div class="modal-dialog modal-dialog-centered">
+											<div class="modal-content">
+												<div class="modal-header border-0">
+													<button type="button" class="btn-close" data-bs-dismiss="modal"
+														aria-label="Close"></button>
+												</div>
+												<div class="modal-body">
+													<div class="text-center">
+														<h6>Update user plan</h6>
+													</div>
+													<form
+														action="{% url 'accounts:update-plan' billing_slug=billing_slug slug=slug userslug=userslug planslug=plan.slug %}"
+														method="post">
+														{% csrf_token %}
+														<div class="mb-3 form-check">
+															{{updateform|crispy}}
+														</div>
+														<button type="submit"
+															class="ms-4 modal-btn fs-6 btn btn-primary">Update</button>
+													</form>
+												</div>
+											</div>
+										</div>
+									</div>
+
+									<div class="bs-primary bs-secondary py-2 px-3 " type="button" data-bs-toggle="modal"
+										data-bs-target="#staticBackdrop2">Notify</div>
+									<!-- Notify modal-->
+									<div class="modal fade" id="staticBackdrop2" data-bs-backdrop="static"
+										data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
+										aria-hidden="true">
+										<div class="modal-dialog modal-lg">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h5 class="modal-title" id="staticBackdropLabel">Add Notification
+													</h5>
+													<button type="button" class="btn-close" data-bs-dismiss="modal"
+														aria-label="Close"></button>
+												</div>
+												<div class="modal-body">
+													<form class="row g-3" action="{% url 'accounts:create-notification' billing_slug=billing_slug slug=slug %}" method="post" enctype="multipart/form-data">
+														{% csrf_token %}
+														{{ notification_form|crispy }}
+														<!-- <div class="col-2">
+															<label for="select" class="col-form-label">Profile</label>
+														</div>
+														<div class="col-auto">
+															<select id="Select" class="form-select">
+																<option>Disabled select</option>
+																<option>Disabled select</option>
+																<option>Disabled select</option>
+															</select>
+														</div>
+														<div class="w-100 m-0"></div>
+														<div class="col-2 m-0">
+															<label for="state" class="col-form-label">Image:</label>
+														</div>
+														<div class="col-auto mt-0">
+															<input class="form-control w-auto" type="file"
+																id="formFile">
+														</div>
+														<div class="w-100 m-0"></div>
+														<div class="col-auto">
+															<input type="checkbox" class="form-check-input"
+																id="exampleCheck1">
+														</div>
+														<div class="col-auto">
+															<label class="form-check-label" for="exampleCheck1">Check me
+																out</label>
+														</div>
+														<div class="w-100 m-0"></div>
+														<div class="col-2">
+															<label for="body" class="col-form-label">Body</label>
+														</div>
+														<div class="col-9">
+															<textarea class="form-control"
+																id="exampleFormControlTextarea1" rows="5"></textarea>
+														</div>
+														<div class="w-100 m-0"></div>
+														<div class="col-2">
+															<label for="url" class="col-form-label">URL</label>
+														</div>
+														<div class="col-7">
+															<input type="url" id="url" class="form-control p-2"
+																aria-describedby="utilitystate">
+														</div>
+														<div class="w-100 m-0"></div>
+														<div class="col-2">
+															<label for="url" class="col-form-label">URL name</label>
+														</div>
+														<div class="col-6">
+															<input type="text" id="url" class="form-control p-2"
+																aria-describedby="utilitystate">
+														</div> -->
+														<div class="modal-footer">
+															<button type="button" class="modal-btn btn btn-secondary"
+																data-bs-dismiss="modal">Close</button>
+																<button type="submit" class="modal-btn btn btn-primary">Save</button>
+														</div>
+													</form>
+												</div>
+												
+											</div>
+										</div>
+									</div>
+								</div>
+								<!-- END profile-header-tab -->
+							</div>
+						</div>
+						<!-- END profile-header-content -->
+					</div>
+					<!-- end profile -->
+					<!-- begin profile-content -->
+					<div class="profile-content">
+						<!-- begin tab-content -->
+						<div class="tab-content p-0">
+
+							<!-- begin #profile-about tab -->
+							<div class="tab-pane fade in active show" id="profile-about">
+								<!-- begin table -->
+								<div class="tab">
+									<button class="tablinks" onclick="openCity(event, 'London')"
+										id="defaultOpen">Utility Details</button>
+									<button class="tablinks" onclick="openCity(event, 'Paris')">Personal
+										Details</button>
+									<button class="tablinks" onclick="openCity(event, 'Tokyo')">Plan Details</button>
+									<button class="tablinks" onclick="openCity(event, 'Canada')">History</button>
+								</div>
+							</div>
+							<!-- end #profile-about tab -->
+						</div>
+						<!-- end tab-content -->
+					</div>
+					<!-- end profile-content -->
+					<div id="London" class="tabcontent">
+
+						<!-- begin table -->
+						<div class="table-responsive">
+							<table class="table table-profile">
+								<thead>
+									<td>
+										<h6>Basic Details</h6>
+									</td>
+								</thead>
+								<tbody>
+									<tr class="field">
+										<td class="field">User name :</td>
+										<td>{{profile.user.username}}</td>
+									</tr>
+									<tr>
+										<td class="field">Full name :</td>
+										<td>{{profile.full_name}}</td>
+									</tr>
+									<tr>
+										<td class="field">Status :</td>
+										<td>{{profile.status}}</td>
+									</tr>
+									<tr>
+										<td class="field">Info Updated on :</td>
+										<td> {{profile.info_updated_at}}</td>
+									</tr>
+								</tbody>
+							</table>
+							<table class="table table-profile">
+								<thead>
+									<td>
+										<h6>Utility Details</h6>
+									</td>
+								</thead>
+								<tbody>
+									<tr class="field">
+										<td class="field">Utility State :</td>
+										<td>{{ profile.utility_state }}</td>
+									</tr>
+									<tr>
+										<td class="field">Utility District :</td>
+										<td>{{ profile.utility_district }}</td>
+									</tr>
+									<tr>
+										<td class="field">Utility Country :</td>
+										<td>{{ profile.utility_country }}</td>
+									</tr>
+									<tr>
+										<td class="field">Utility Postal Code :</td>
+										<td> {{ profile.utility_postalcode }}</td>
+									</tr>
+									<tr>
+										<td class="field">Utility Address :</td>
+										<td>{{ profile.utility_address }}</td>
+									</tr>
+								</tbody>
+							</table>
+							<table class="table table-profile">
+								<thead>
+									<td>
+										<h6>Emergency Details</h6>
+									</td>
+								</thead>
+								<tbody>
+									<tr class="field">
+										<td class="field">Emergency Person :</td>
+										<td>{{ profile.emergency_person }}</td>
+									</tr>
+									<tr>
+										<td class="field">Emergency alt person :</td>
+										<td>{{ profile.emergency_altperson }}</td>
+									</tr>
+									<tr>
+										<td class="field">Emergency phone no :</td>
+										<td><i class="fa fa-mobile fa-lg m-r-5"></i> {{ profile.emergency_mobile }}</td>
+									</tr>
+									<tr>
+										<td class="field">Emergency alt phone no :</td>
+										<td><i class="fa fa-mobile fa-lg m-r-5"></i> {{ profile.emergency_altmobile }}</td>
+									</tr>
+									<tr>
+										<td class="field">Emergency office Address :</td>
+										<td>{{ profile.emergency_officeaddress }}</td>
+									</tr>
+									<tr>
+										<td class="field">Emergency alt office Address :</td>
+										<td>{{ profile.emergency_altofficeaddress }} </td>
+									</tr>
+								</tbody>
+							</table>
+							<table class="table table-profile">
+								<thead>
+									<td>
+										<h6>Contact Details</h6>
+									</td>
+								</thead>
+								<tbody>
+									<tr class="field">
+										<td class="field">Contact person :</td>
+										<td>{{ profile.contact_person }}</td>
+									</tr>
+									<tr>
+										<td class="field">Contact email :</td>
+										<td>{{ profile.contact_email }}</td>
+									</tr>
+									<tr>
+										<td class="field">Contact phone no.:</td>
+										<td><i class="fa fa-mobile fa-lg m-r-5"></i> {{ profile.contact_phnum }}</td>
+									</tr>
+									<tr>
+										<td class="field">Contact mobile :</td>
+										<td><i class="fa fa-mobile fa-lg m-r-5"></i> {{ profile.contact_mobile }}</td>
+									</tr>
+									<tr>
+										<td class="field">Contact designation :</td>
+										<td>{{ profile.contact_designation }}</td>
+									</tr>
+									<tr>
+										<td class="field">Contact landline :</td>
+										<td>{{ profile.contact_landline }}</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+
+					<div id="Paris" class="tabcontent">
+						<!-- begin table -->
+						<div class="table-responsive">
+							<table class="table table-profile">
+								<tbody>
+									<tr class="">
+										<td class="field">Name</td>
+										<td>{{profile.full_name}}</td>
+									</tr>
+									<tr>
+										<td class="field">Mobile</td>
+										<td><i class="fa fa-mobile fa-lg m-r-5"></i> +1-(847)- 367-8924</td>
+									</tr>
+									<tr>
+										<td class="field">Home</td>
+										<td>Add Number</td>
+									</tr>
+									<tr>
+										<td class="field">Office</td>
+										<td>Add Number</td>
+									</tr>
+									<tr class="">
+										<td class="field">About Me</td>
+										<td>Add Description</td>
+									</tr>
+									<tr>
+										<td class="field">Country/Region</td>
+										<td>Asia
+										</td>
+									</tr>
+									<tr>
+										<td class="field">City</td>
+										<td>Los Angeles</td>
+									</tr>
+									<tr>
+										<td class="field">State</td>
+										<td>Add State</td>
+									</tr>
+									<tr>
+										<td class="field">Website</td>
+										<td>Add Webpage</td>
+									</tr>
+									<tr>
+										<td class="field">Gender</td>
+										<td>Female
+										</td>
+									</tr>
+									<tr>
+										<td class="field">Birthdate</td>
+										<td>05 may 2001
+										</td>
+									</tr>
+									<tr>
+										<td class="field">Language</td>
+										<td>English
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+
+					<div id="Tokyo" class="tabcontent">
+
+						<!-- begin table -->
+						<div class="table-responsive">
+							<table class="table table-profile">
+								<tbody>
+									<tr>
+										<td class="field">plan</td>
+										<td>{{plan}}
+										</td>
+									</tr>
+
+									<tr>
+										<td class="field">Paid status</td>
+										{% if profile.paid %}
+										<td>Paid</td>
+										{% else %}
+										<td>Not Paid</td>
+										{% endif %}
+									</tr>
+									<tr>
+										<td class="field">Active status</td>
+										{% if profile.plan_active %}
+										<td>Active</td>
+										{% else %}
+										<td>Expired</td>
+										{% endif %}
+
+									</tr>
+
+								</tbody>
+							</table>
+						</div>
+					</div>
+
+					<div id="Canada" class="tabcontent">
+
+						<!-- begin table -->
+						<div class="table-responsive">
+							<table class="table table-profile">
+								<tbody>
+									<tr class="field">
+										<td class="field">12:39 PM</td>
+										<td>Learning and development</td>
+										<td class="text-end pe-3"><svg xmlns="http://www.w3.org/2000/svg" width="16"
+												height="16" fill="currentColor" class="bi bi-three-dots-vertical"
+												viewBox="0 0 16 16">
+												<path
+													d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z" />
+											</svg></td>
+									</tr>
+									<tr>
+										<td class="field">12:39 PM</td>
+										<td>Learning and development</td>
+										<td class="text-end pe-3"><svg xmlns="http://www.w3.org/2000/svg" width="16"
+												height="16" fill="currentColor" class="bi bi-three-dots-vertical"
+												viewBox="0 0 16 16">
+												<path
+													d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z" />
+											</svg></td>
+									</tr>
+									<tr>
+										<td class="field">12:39 PM</td>
+										<td>Learning and development</td>
+										<td class="text-end pe-3"><svg xmlns="http://www.w3.org/2000/svg" width="16"
+												height="16" fill="currentColor" class="bi bi-three-dots-vertical"
+												viewBox="0 0 16 16">
+												<path
+													d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z" />
+											</svg></td>
+									</tr>
+									<tr>
+										<td class="field">12:39 PM</td>
+										<td>Learning and development</td>
+										<td class="text-end pe-3"><svg xmlns="http://www.w3.org/2000/svg" width="16"
+												height="16" fill="currentColor" class="bi bi-three-dots-vertical"
+												viewBox="0 0 16 16">
+												<path
+													d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z" />
+											</svg></td>
+									</tr>
+									<tr>
+										<td class="field">12:39 PM</td>
+										<td>Learning and development</td>
+										<td class="text-end pe-3"><svg xmlns="http://www.w3.org/2000/svg" width="16"
+												height="16" fill="currentColor" class="bi bi-three-dots-vertical"
+												viewBox="0 0 16 16">
+												<path
+													d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z" />
+											</svg></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<script>
+						function openCity(evt, cityName) {
+							var i, tabcontent, tablinks;
+							tabcontent = document.getElementsByClassName("tabcontent");
+							for (i = 0; i < tabcontent.length; i++) {
+								tabcontent[i].style.display = "none";
+							}
+							tablinks = document.getElementsByClassName("tablinks");
+							for (i = 0; i < tablinks.length; i++) {
+								tablinks[i].className = tablinks[i].className.replace(" active", "");
+							}
+							document.getElementById(cityName).style.display = "block";
+							evt.currentTarget.className += " active";
+						}
+						// Get the element with id="defaultOpen" and click on it
+						document.getElementById("defaultOpen").click();
+					</script>
+
+
+
+
+				</div>
+			</div>
+		</div>
+	</div>
+	</section>
+
+
+
+
+
+	<script>
+		function openCity(evt, cityName) {
+			var i, tabcontent, tablinks;
+			tabcontent = document.getElementsByClassName("tabcontent");
+			for (i = 0; i < tabcontent.length; i++) {
+				tabcontent[i].style.display = "none";
+			}
+			tablinks = document.getElementsByClassName("tablinks");
+			for (i = 0; i < tablinks.length; i++) {
+				tablinks[i].className = tablinks[i].className.replace(" active", "");
+			}
+			document.getElementById(cityName).style.display = "block";
+			evt.currentTarget.className += " active";
+		}
+	</script>
+</body>
+
+<script src="js/create.js"></script>
+<script>
+	function myFunction() {
+
+		toastr.options = {
+			"positionClass": "toast-top-center",
+			"closeButton": true,
+			"debug": false,
+			"newestOnTop": false,
+			"progressBar": true,
+			"preventDuplicates": false,
+			"onclick": null,
+			"showDuration": "300",
+			"hideDuration": "1000",
+			"timeOut": "5000",
+			"extendedTimeOut": "1000",
+			"showEasing": "swing",
+			"hideEasing": "linear",
+			"showMethod": "fadeIn",
+			"hideMethod": "fadeOut"
+
+		}
+		Command: toastr["success"]
+			("Submitted Successfully.....!!!")
+	}
+</script>
+
+<script>
+	"use strict";
+	let leftie = document.querySelector('.left')
+	let menuh = document.querySelector('.menu')
+	let closeh = document.querySelector('.close')
+	let right = document.querySelector('.right')
+
+
+	menuh.addEventListener('click', function () {
+		menuh.classList.toggle('d-none')
+		closeh.classList.toggle('d-none')
+		leftie.classList.toggle('d-none')
+		right.classList.toggle('overlay')
+
+	})
+	closeh.addEventListener('click', function () {
+		menuh.classList.toggle('d-none')
+		closeh.classList.toggle('d-none')
+		leftie.classList.toggle('d-none')
+		right.classList.toggle('overlay')
+
+	})
+</script>
+
+
+</html>

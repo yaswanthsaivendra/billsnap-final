@@ -1,0 +1,288 @@
+{% load crispy_forms_tags %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>billsnap</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous" />
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
+        integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous">
+        </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"
+        integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous">
+        </script>
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,500;0,700;0,800;1,200;1,300;1,400;1,500;1,600;1,700&display=swap"
+        rel="stylesheet" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="{% static 'assets/styles.css'%}">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js" ></script>
+</head>
+<style>
+    .row {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 20px !important;
+
+    }
+
+
+
+
+
+    button {
+        float: right;
+    }
+
+    .grp {
+        background-color: #f2f2f2;
+        border-radius: 10px;
+        padding: 20px;
+        margin: 10px 60px;
+
+    }
+
+    .new-group-btn {
+        float: right;
+        position: relative;
+        top: 0;
+        right: 0;
+    }
+
+    .span {
+        background-color: #7b7b7b !important;
+        position: relative;
+        top: 0;
+        right: 0;
+        float: right !important;
+    }
+
+    .card {
+        /* border: 1px solid black !important; */
+        margin: 20px;
+        height: 250px;
+        width: 300px;
+        background-color: #f2f2f2;
+        border-radius: 10px;
+    }
+</style>
+
+
+<body>
+
+    {% include "dashnav.html" %}
+    <div class="main mx-auto">
+        <div class="row bulkuploadcontent">
+
+            {% include "dashsidebar.html" %}
+            <div class="col-md-7  flex-md-fill m-3">
+                <div class="col right create-customer ps-0 pe-4 me-2" id="">
+                    <button class=" button button1" data-toggle="modal" data-target="#addcustomers">Add</button>
+                    <h2 class="ps-1 pt-3 text-uppercase" id="pspt">{{plan.title}} CUSTOMERS</h2><br>
+
+                    <!-- existing customers table -->
+                    <div class=" my-3">
+                        <table class="table table-bordered" id='table_filter'>
+                            <thead>
+                                <tr>
+                                    <th>User Name</th>
+                                    <th>Full Name</th>
+                                    <th>Email</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for user in users %}
+                                <tr>
+                                    <td>{{ user.user.username}}</td>
+                                    <td>{{ user.full_name}}</td>
+                                    <td>{{ user.contact_email}}</td>
+
+                                    <td>
+                                        <button class="bs-primary px-3 py-2" data-bs-toggle="modal"
+                                            data-bs-target="#exampleModal{{user.id}}">
+                                            Update Plan
+                                        </button>
+                                    </td>
+
+                                </tr>
+                                <div class="modal fade" id="exampleModal{{user.id}}" tabindex="-1"
+                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered modal-lg">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title">Update @{{user.user.username}}'s Plan</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                            </div>
+                                            <form class='w3-margin w3-padding' enctype='multipart/form-data'
+                                                method='POST'
+                                                action="{% url 'update-plan' billing_slug=billing_slug profileslug=user.slug planslug=plan.slug %}">
+                                                <div class="modal-body">
+
+
+                                                    {% csrf_token %}
+                                                    {{ update_form|crispy }}
+
+
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="bs-primary bs-secondary py-2 px-3 mx-2"
+                                                        data-bs-dismiss="modal">Close</button>
+                                                    <button type="submit" class="bs-primary py-2 px-3">Update</button>
+                                                </div>
+                                            </form>
+                                            <hr>
+                                            
+                                           
+                  
+                                        </div>
+                                    </div>
+
+                                </div>
+                                {%endfor%}
+                            </tbody>
+                        </table>
+
+                    </div>
+
+                  
+                </div>
+
+
+
+
+                <div class='w3-container w3-padding w3-round w3-half w3-border'>
+                    <button id="button" onclick="showForm();" class=' w3-round w3-button w3-blue'>
+                        Add Customer to {{plan.title}}
+                    </button>
+                    <form id="plan_form" style="display:none;" enctype='multipart/form-data' method='POST'
+                        action="{% url 'plan' billing_slug=billing_slug slug=slug planslug=plan.slug %}">
+                        <h5 class='w3-center'>Add to {{plan.title}}</h5>
+                        {% csrf_token %}
+                        {{ form|crispy }}
+                        <button style='width:95%;' type='submit'
+                            class='w3-margin w3-round w3-green w3-button'>Add</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- add customer model -->
+    <div class="modal fade" id="addcustomers" tabindex="-1" aria-labelledby="addcutomersLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Add Customers to {{plan.title}}</h5>
+                </div>
+
+                <div class="modal-body">
+
+                    <div class="table-responsive my-3">
+                        <table class="table table-bordered" id='table_filter2'>
+                            <thead>
+                                <tr>
+                                    <th>User Name</th>
+                                    <th>Full Name</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for user in existing_users %}
+                                <tr>
+                                    <td>{{ user.user.username}}</td>
+                                    <td>{{ user.full_name}}</td>
+                                    <td>
+                                        <form id="plan_form" enctype='multipart/form-data' method='POST'
+                                        action="{% url 'plan' billing_slug=billing_slug slug=slug planslug=plan.slug %}">
+                                        
+                                        {% csrf_token %}
+                                        <!-- {{ form|crispy }} -->
+                                        <input type="text" name="username" value="{{ user.user.username }}" style="display:none">
+                                        
+                                            <button type='submit'
+                                            class='bs-primary py-2 px-3'>Add</button>
+                                       
+                                        </form>
+                                        
+
+                                      
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    <hr>
+                    <!-- <form id="plan_form" enctype='multipart/form-data' method='POST'
+                                                action="{% url 'plan' billing_slug=billing_slug slug=slug planslug=plan.slug %}">
+                                                <h5>Add by Username</h5>
+                                                {% csrf_token %}
+                                                {{ form|crispy }}
+                                                
+                                                    <button type='submit'
+                                                    class='bs-primary py-2 px-3'>Add</button>
+                                               
+                    </form> -->
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="bs-primary bs-secondary px-3 py-2 mx-2"
+                        data-dismiss="modal">Close</button>
+                </div>
+
+
+
+
+
+            </div>
+        </div>
+    </div>
+    </div>
+</body>
+<script>
+    $(document).ready( function () {
+    $('#table_filter').DataTable();
+} );
+</script>
+<script>
+    $(document).ready( function () {
+    $('#table_filter2').DataTable();
+} );
+</script>
+<script>
+    function showForm() {
+        document.getElementById('plan_form').style.display = "block";
+        document.getElementById('button').style.display = "none";
+    }
+    function showUpdateForm() {
+        document.getElementById('form').style.display = "block";
+    }
+    function addCustomerApp(obj) {
+        var url = obj.getAttribute('url') + '?username=' + obj.value;
+        $.ajax({
+            type: 'GET',
+            url: url,
+            success: function (resp) {
+                document.location.reload(true);
+            }
+        })
+    } 
+</script>
+
+</html>

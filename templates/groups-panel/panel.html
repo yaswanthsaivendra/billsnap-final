@@ -1,0 +1,221 @@
+{% load crispy_forms_tags %}
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>billsnap</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous" />
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
+        integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous">
+        </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"
+        integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous">
+        </script>
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,500;0,700;0,800;1,200;1,300;1,400;1,500;1,600;1,700&display=swap"
+        rel="stylesheet" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="{% static 'assets/styles.css'%}">
+</head>
+<style>
+    /* .row {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 20px !important;
+
+    } */
+
+    .container {
+        max-width: 800px !important;
+
+    }
+
+    .app-form-container {
+        max-width: 700px;
+    }
+
+    button {
+        float: right;
+    }
+
+    .card{
+        background-color: #f2f2f2;
+        border-radius: 10px;
+        margin: 20px;
+        width: 300px;
+        min-height:230px;
+        display:flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .new-group-btn {
+        float: right;
+        position: relative;
+        top: 0;
+        right: 0;
+    }
+
+    .span {
+        background-color: #7b7b7b !important;
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        float: right !important;
+    }
+</style>
+
+<body>
+    {% include "dashnav.html" %}
+
+    <div class="main mx-auto">
+        <div class="row bulkuploadcontent">
+
+            {% include "dashsidebar.html" %}
+            <div class="col-md-7  flex-md-fill m-3 px-3">
+
+                <button class=" button button1" data-toggle="modal" data-target="#addgrp">Add</button>
+                <h2 class="ps-1 pt-3 text-uppercase" id="pspt">{{slug}} groups</h2><br>
+
+                <!-- tabs bar -->
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home"
+                            type="button" role="tab" aria-controls="home" aria-selected="true">User Groups</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile"
+                            type="button" role="tab" aria-controls="profile" aria-selected="false">Plan Groups</button>
+                    </li>
+
+                </ul>
+                <div class="tab-content" id="myTabContent">
+
+                    <!-- tab 1 -->
+                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                        <div class="row">
+                            {% for group in groups %}
+                            
+                            <div class="col-xl-3 col-sm-6 mb-5">
+                                <div class="card rounded shadow-sm py-4 px-4">
+                                    <div class="top">
+                                        <h5>{{group.title}}</h5>
+                                        <p>{{group.description}}</p>
+                                    </div>
+                                  <div class="bottom">
+                                    <a href="{% url 'groups:group' billing_slug=billing_slug slug=slug groupslug=group.slug %}">
+                                        <button class='bs-primary px-3 py-2'>View</button>
+                                    </a>
+                                    <a href="{% url 'groups:delete-group' billing_slug group.slug slug %}">
+                                        <button class='bs-primary bs-secondary px-3 py-2'>Delete</button>
+                                    </a> 
+                                  </div>
+                               
+                                </div>
+                            </div>
+                            
+                          
+                            {% endfor %}
+                        </div>
+                        
+                    </div>
+
+                    <!-- tab 2 -->
+                    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                        <div class="row">
+
+
+                            {% for plan in plans %}
+                            {% if plan.default_for_customer %}
+                            <div class="col-xl-3 col-sm-6 mb-5">
+                                <div class="card rounded shadow-sm py-4 px-4">
+                                    <div class="top">
+                                        <div>
+                                            <span class="badge badge-success p-2 mt-2 float-right span">Default</span>
+                                        </div>
+                                        <h5>{{plan.title}}</h5>
+                                        <p>{{plan.description}}</p>
+                                    </div>
+                                    <div class="bottom">
+                                        <a href="{% url 'groups:plangroup' billing_slug slug plan.slug %}">
+                                            <button class='bs-primary px-3 py-2'>View</button>
+                                        </a>
+                                    </div>
+                                   
+                                </div>
+                            </div>
+                            
+                            {% else %}
+                           
+                            <div class="col-xl-3 col-sm-6 mb-5">
+                                <div class="card rounded shadow-sm py-4 px-4">
+                                    <div class="top">
+                                        <h5>{{plan.title}}</h5>
+                                        <p>{{plan.description}}</p>
+                                    </div>
+                                   <div class="bottom">
+                                    <a href="{% url 'groups:plangroup' slug plan.slug %}">
+                                        <button class='bs-primary px-3 py-2'>View</button>
+                                    </a>
+                                   </div>
+                                </div>
+                            </div>
+                            {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+        </div>
+        <!-- add group model -->
+        <div class="modal fade" id="addgrp" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Create New Group</h5>
+                    </div>
+                    <form id="group_form" enctype='multipart/form-data' method='POST'
+                        action="{% url 'groups:groups-panel' billing_slug slug %}">
+                        {% csrf_token %}
+                        <div class="modal-body">
+                            {{ form|crispy }}
+
+
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="bs-primary bs-secondary px-3 py-2 mx-2"
+                                data-dismiss="modal">Close</button>
+                            <button type="submit" class="bs-primary px-3 py-2">Create</button>
+                        </div>
+
+
+                    </form>
+
+
+                </div>
+            </div>
+        </div>
+</body>
+
+
+</html>

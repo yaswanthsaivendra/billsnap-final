@@ -1,0 +1,142 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js"></script>
+
+<style>
+  #toast-container{
+    margin-top:30px;
+  }
+  .toast-success {
+
+    background: white;
+    /* border-left: 6px solid #3dcd58; */
+
+    }
+    .toast-info {
+        background: wheat;
+        border-left: 6px solid #3498db;
+    }
+    .toast-error {
+      background-color: red;
+      border-left: 6px solid #3498db;
+
+
+    }
+    .toast-warning {
+      background-color: #f89406;
+      border-left: 6px solid #3498db;
+
+    }
+
+    #toast-container > .toast-success {
+
+
+    color: black;
+
+    }
+
+    .toast-progress {
+
+    background-color:#85ff9c;
+    opacity: 1 !important;
+
+    }
+    .toast {
+      opacity: 1 !important;
+    }
+
+    #toast-container > div {
+      opacity: 1 !important;
+      height: 55px;
+     
+    }
+    #toast-container.toast-top-center>div{
+      width:600px !important;
+    }
+    .toast-success .toast-progress {
+      background-color: #85ff9c;
+      opacity: 1 !important;
+
+    }
+
+    .toast-close-button {
+      color:grey;
+      opacity: 0.9;
+      top: -14px;
+      font-weight: 100;
+    font-size: 35px;
+    margin-right: 10px;
+    }
+    .toast-message{
+      font-family:inherit;
+      font-size: 16px;
+      
+    }
+</style>
+</head>
+<body>
+    <script>
+        function myFunction(hh){
+          toastr.options = {
+  "closeButton": true,
+  "debug": true,
+  "newestOnTop": false,
+  "progressBar": true,
+  "positionClass": "toast-top-center",
+  "preventDuplicates": true,
+  "showDuration": "300",
+  "hideDuration": "1000",
+  "timeOut": "5000",
+  "extendedTimeOut": "1000",
+  "showEasing": "swing",
+  "hideEasing": "linear",
+  "showMethod": "fadeIn",
+  "hideMethod": "fadeOut"
+}
+Command: toastr["success"](hh)
+}
+</script>
+
+<script>
+function notifyMe(hh) {
+  // Let's check if the browser supports notifications
+  if (!("Notification" in window)) {
+    alert("This browser does not support desktop notification");
+  }
+
+  // Let's check whether notification permissions have already been granted
+  else if (Notification.permission === "granted") {
+    // If it's okay let's create a notification
+
+    let notification = new Notification(hh);
+  }
+
+  // Otherwise, we need to ask the user for permission
+  else if (Notification.permission !== "denied") {
+    Notification.requestPermission().then(function (permission) {
+      // If the user accepts, let's create a notification
+      if (permission === "granted") {
+        let notification = new Notification(hh);
+      }
+    });
+  }
+}
+</script>
+
+{% if messages %}
+    {% for message in messages %}
+        {% if message.tags == "success" %}
+            <script>
+            myFunction('{{message}}')
+            </script>
+        {% elif message.tags == "error" %}
+        <script>
+            myFunction('{{message}}')
+            </script>
+        {% elif message.tags == "warning" %}
+        <script>
+            myFunction('{{message}}')
+            </script>
+        {% endif %}
+    {% endfor %}
+{% endif %}

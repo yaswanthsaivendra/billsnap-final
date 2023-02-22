@@ -1,0 +1,29 @@
+
+{% load crispy_forms_tags %}
+<!DOCTYPE html>
+<html>
+<body>
+<h1>Applist page</h1>
+{% if user.is_authenticated %}
+    <p>Hi, {{user.username}}</p>
+    <button type="button"><a href="{%url 'logout' %}">LogOut</a></button>
+{% else %}
+    <button><a href="{%url 'register'%}">Register</a></button>
+    <p>OR</p>
+    <button><a href="{%url 'login'%}">LogIn</a></button>
+{% endif %}
+
+<br></br>
+
+<form method="POST" enctype="multipart/form-data">
+  {% csrf_token %}
+  <fieldset class="form-group">
+      <legend class="border-bottom mb-4">Add Customer</legend>
+      {{ form | crispy }}
+  </fieldset>
+  <div class="form-group">
+      <button class="btn btn-outline-info" type="submit">Add</button>
+  </div>
+</form>
+</body>
+</html>
